@@ -15,3 +15,4 @@ namespace ShapeUser {
     }
   }
 }
+// csc /r:Shapes.dll ShapeUser.cs
