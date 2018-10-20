@@ -22,7 +22,7 @@ namespace Shapes {
     }
   }
 }
-// csc /target:library /out:Shapes.dll Shapes.cs
 // sn -k Shapes.snk
+// csc /t:library /keyfile:Shapes.snk Shapes.cs
 // gacutil /i Shapes.dll
-// C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Shapes
+// --> C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Shapes
