@@ -1,53 +1,39 @@
 using System;
 
-namespace tutorialspoint {
+class Student {
+  private string code = "N.A";
+  private string name = "not known";
+  private int age = 0;
 
-  class Student {
-    private string code = "N.A";
-    private string name = "not known";
-    private int age = 0;
-    // Declare a Code property of type string:
-
-    public string Code {
-      get { return code; }
-      set { code = value; }
-      //          (채워주세요 )
-    }
-
-    // Declare a Name property of type string:
-    public string Name {
-      get { return name; }
-      set { name = value; }
-      //          ( 채워주세요 )
-    }
-
-    // Declare a Age property of type int:
-    public int Age {
-      get { return age; }
-      set { age = value; }
-      //          ( 채워주세요 )
-    }
-
-    public override string ToString() {
-      return "Code = " + Code + ", Name = " + Name + ", Age = " + Age;
-    }
+  public string Code {
+    get { return code; }
+    set { code = value; }
   }
 
-  class ExampleDemo {
-    public static void Main() {
+  public string Name {
+    get { return name; }
+    set { name = value; }
+    //          ( 채워주세요 )
+  }
+  // Declare a Age property of type int:
+  public int Age {
+    get { return age; }
+    set { age = value; }
+  }
 
-      // Create a new Student object:
-      Student s = new Student();
+  public override string ToString() {
+    return "Code = " + Code + ", Name = " + Name + ", Age = " + Age;
+  }
+}
 
-      // Setting code, name and the age of the student
-      s.Code = "001";
-      s.Name = "Zara";
-      s.Age = 9;
-      Console.WriteLine("Student Info: {0}", s);
-      //let us increase age
-      s.Age += 1;
-      Console.WriteLine("Student Info: {0}", s);
-      Console.ReadKey();
-    }
+class ExampleDemo {
+  public static void Main() {
+    Student s = new Student();
+    s.Code = "001";
+    s.Name = "Zara";
+    s.Age = 9;
+    Console.WriteLine("Student Info: {0}", s);
+    s.Age += 1;
+    Console.WriteLine("Student Info: {0}", s);
   }
 }

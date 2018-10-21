@@ -1,15 +1,13 @@
 using System;
 
 class Program {
-  // declare delegate
   public delegate void Print(int value);
 
-  static void Main(string[] args) {
-    // Print delegate points to PrintNumber
+  static void Main() {
     Print printDel = PrintNumber;
     printDel(100000);
     printDel(200);
-    // Print delegate points to PrintMoney
+
     printDel = PrintMoney;
     printDel(10000);
     printDel(200);

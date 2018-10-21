@@ -1,22 +1,30 @@
 using System;
 using System.Threading;
+using System.Diagnostics;
 
 class Program {
-  public static void Main(string[] args) {
+  public static void Main() {
     Thread[] t = new Thread[10];
-    for (int tNum = 0; tNum < 10; tNum++) {
-      t[tNum] = new Thread(() => {
-        Thread.Sleep(new Random().Next(20));
-        Console.Write(tNum + " ");
-      });
-      t[tNum].Start();
-    }
+    int[] ms = new int[t.Length];
 
-    // wait for the threads to finish
-    for (int tNum = 0; tNum < 10; tNum++) {
-      t[tNum].Join();
+    Stopwatch stopwatch = new Stopwatch();
+    stopwatch.Start();
+    int n = 0;
+    for (int i = 0; i < t.Length; i++) {
+      (t[i] = new Thread(() => {
+        Thread.Sleep(ms[n++] = new Random().Next(20));
+        Console.Write(i + " ");
+      })).Start();
     }
-    Console.WriteLine("\nPress a key...");
-    Console.Read();
+    stopwatch.Stop();
+
+    for (int i = 0; i < t.Length; i++) {
+      t[i].Join();
+    }
+    Console.WriteLine();
+    foreach (int i in ms) {
+      Console.Write(i + " ");
+    }
+    Console.WriteLine("\n" + stopwatch.Elapsed.TotalMilliseconds);
   }
 }
