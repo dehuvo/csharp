@@ -7,38 +7,36 @@ class Program {
         printBinary(int.Parse(arg));
       }
     } else {
-      int n;
-      do {
-        Console.Write("입력숫자: ");
-      } while (!int.TryParse(Console.ReadLine(), out n));
-      printBinary(n);
+      Console.Write("수를 넣으시오: ");
+      printBinary(int.Parse(Console.ReadLine()));
     }
   }
 
   static void printBinary(int n) {
-    for (uint bit = 0x80000000; bit != 0; bit >>= 1) {
-      Console.Write((n & bit) == 0 ? "0" : "1");
-    }
-    Console.WriteLine();
+    Console.WriteLine("{0}\t--> {1}\n{2}\n", n, binary(n), bits(n));
+  }
 
-    int[] bin = new int[32];
-    int i = 0;
-
+  static string binary(int n) {
     if (n == 0) {
-      bin[i++] = 0;
-    } else {
-      int a = n;
-      if (n < 0) {
-        Console.Write("-");
-        a = -n;
-      }
-      for (; a != 0; a /= 2) {
-        bin[i++] = a % 2;
-      }
+      return "0";
     }
-    while (0 < i) {
-      Console.Write(bin[--i]);
+    string sign = "";
+    if (n < 0) {
+      sign = "-";
+      n = -n;
     }
-    Console.WriteLine(" ({0})\n", n);
+    string s = "";
+    for (; n != 0; n /= 2) {
+      s = n % 2 + s;
+    }
+    return sign + s;
+  }
+
+  static string bits(int n) {
+    string s = "";
+    for (uint bit = 0x80000000; bit != 0; bit >>= 1) {
+      s += (n & bit) == 0 ? "0" : "1";
+    }
+    return s;
   }
 }

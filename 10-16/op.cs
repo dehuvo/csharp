@@ -25,6 +25,7 @@ namespace 사칙연산 {
       Console.WriteLine("{0} * {1} = {2}", first, second, Calc(first, second, "*"));
       Console.WriteLine("{0} / {1} = {2}", first, second, Calc(first, second, "/"));
     }
+    
     static double Calc(int first, int second, string op) {
       switch (op) {
         case "+": return first + second;
