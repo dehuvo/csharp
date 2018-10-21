@@ -14,7 +14,7 @@ class Program {
   }
 
   static bool isPrime(int n) {
-    int m = (int)Math.Sqrt(n);
+    int m = (int) Math.Sqrt(n);
     for (int i = 2; i <= m; i++) {
       if (n % i == 0) return false;
     }

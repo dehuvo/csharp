@@ -2,12 +2,15 @@ using System;
 
 class Program {
   static void Main() {
-    int n;
-    
-    do {
-      Console.Write("수를 넣으시오: ");
-    } while (!int.TryParse(Console.ReadLine(), out n));
-
-    Console.WriteLine("넣은 수는 " + (n % 2 == 0 ? "짝" : "홀") + "수입니다.");
+    Console.Write("Enter the First Number : ");
+    int num1 = int.Parse(Console.ReadLine());
+    Console.Write("Enter the Second Number : ");
+    int num2 = int.Parse(Console.ReadLine());
+    int temp = num1;
+    num1 = num2;
+    num2 = temp;
+    Console.WriteLine("After Swapping : ");
+    Console.WriteLine("First Number : " + num1);
+    Console.WriteLine("Second Number : " + num2);
   }
 }
