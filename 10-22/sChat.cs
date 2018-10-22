@@ -29,7 +29,7 @@ class Server {
       clientSockets.Add(socket);
       StreamReader reader = new StreamReader(new NetworkStream(socket), encoding);
       string line;
-      while (readLine(reader, out line)) {
+      while ((line = readLine(reader)) != null) {
         Console.WriteLine(line);
         foreach (Socket clientSocket in clientSockets) {
           NetworkStream stream = new NetworkStream(clientSocket);
@@ -38,8 +38,7 @@ class Server {
           writer.Close();
         }
       }
-    } catch (Exception e) {
-      Console.WriteLine(e.ToString());
+    } catch {
     } finally {
       clientSockets.Remove(socket);
       socket.Close();
@@ -47,14 +46,11 @@ class Server {
     }
   }
 
-  static bool readLine(StreamReader reader, out string line) {
+  static string readLine(StreamReader reader) {
     try {
-      line = reader.ReadLine();
-      return true;
+      return reader.ReadLine();
     } catch {
-      Console.WriteLine("== 클라이언트 하나가 종료되었습니다.");
-      line = null;
-      return false;
+      return null;
     }
   }
 }
