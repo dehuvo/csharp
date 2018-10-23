@@ -5,38 +5,44 @@ using System.Text;
 using System.Threading;
 
 class Client {
+  static StreamReader reader = null;
+
   static void Main() {
     Encoding encoding = Encoding.GetEncoding("euc-kr");
     TcpClient client = new TcpClient();
     try {
       client.Connect("localhost", 5001);
-      // client.Connect("192.168.0.15", 5001);
       NetworkStream stream = client.GetStream();
-      StreamReader reader = new StreamReader(stream, encoding);
-      new Thread(() => post(reader)).Start();
+      reader = new StreamReader(stream, encoding);
+      new Thread(post).Start();
       
       StreamWriter writer = new StreamWriter(stream, encoding) { AutoFlush = true };
-      string line;
+      int i;
       do {
-        line = Console.ReadLine();
-        writer.WriteLine(line);
-      } while (line.IndexOf("<EOF>") < 0);
-    } catch (Exception e) {
-      Console.WriteLine(e);
+        string line = Console.ReadLine();
+        if (0 <= (i = line.IndexOf("<EOF>"))) {
+          line = line.Substring(0, i);
+        }
+        if (0 < line.Length) {
+          writer.WriteLine(line);
+        }
+      } while (i < 0);
+    } catch {
+      Console.WriteLine("서버에 전송할 수 없습니다.");
+    } finally {
+      reader = null;
+      client.Close();
+      client = null;
     }
   }
 
-  static void post(StreamReader reader) {
+  static void post() {
     try {
       string line;
-      while ((line = reader.ReadLine()) != null) {
-        Console.WriteLine("\n= " + line);
+      while (reader != null && (line = reader.ReadLine()) != null) {
+        Console.WriteLine("=> " + line);
       }
-    } catch (Exception e) {
-      Console.WriteLine(e.ToString());
-    } finally {
-      reader.Close();
-      reader = null;
+    } catch {
     }
   }
 }
