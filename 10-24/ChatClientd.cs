@@ -76,8 +76,8 @@ namespace ChatClient {
       this.txt_Msg.Name = "txt_Msg";
       this.txt_Msg.Size = new System.Drawing.Size(524, 21);
       this.txt_Msg.TabIndex = 5;
-      this.txt_Msg.KeyPress += new
-     System.Windows.Forms.KeyPressEventHandler(this.txt_Msg_KeyPress);
+      this.txt_Msg.KeyPress +=
+      new System.Windows.Forms.KeyPressEventHandler(this.txt_Msg_KeyPress);
       //
       // cmd_Connect
       //
@@ -85,10 +85,9 @@ namespace ChatClient {
       this.cmd_Connect.Name = "cmd_Connect";
       this.cmd_Connect.Size = new System.Drawing.Size(85, 34);
       this.cmd_Connect.TabIndex = 6;
-      this.cmd_Connect.Text = "Login";
+      this.cmd_Connect.Text = "로그인";
       this.cmd_Connect.UseVisualStyleBackColor = true;
-      this.cmd_Connect.Click += new
-     System.EventHandler(this.cmd_Connect_Click);
+      this.cmd_Connect.Click += new System.EventHandler(this.cmd_Connect_Click);
       //
       // Form1
       //
@@ -104,8 +103,7 @@ namespace ChatClient {
       this.Controls.Add(this.label1);
       this.Name = "Form1";
       this.Text = "Form1";
-      this.FormClosed += new
-     System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+      this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
       this.ResumeLayout(false);
       this.PerformLayout();
     }

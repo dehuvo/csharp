@@ -17,16 +17,14 @@ namespace ChatClient {
     StreamReader reader;
     StreamWriter writer;
 
-    // Chat_Class cht_Class = new Chat_Class();
     private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
-      if (cmd_Connect.Text != "Login") {
-         send("<" + txt_Name.Text + "> 님께서 접속해제 하셨습니다.", false);
-        logout();
+      if (cmd_Connect.Text != "로그인") {
+        sendlogout();
       }
     }
 
     private void cmd_Connect_Click(object sender, EventArgs e) {
-      if (cmd_Connect.Text == "Login") {
+      if (cmd_Connect.Text == "로그인") {
         try {
           tcpClient = new TcpClient();
           tcpClient.Connect(IPAddress.Parse(txt_Server_IP.Text), 5001);
@@ -34,23 +32,20 @@ namespace ChatClient {
           reader = new StreamReader(stream, encoding);
           writer = new StreamWriter(stream, encoding) { AutoFlush = true };
           new Thread(post).Start();
-          send("<" + txt_Name.Text + "> 님께서 접속 하셨습니다.", true);
-          cmd_Connect.Text = "Logout";
+          send("<" + txt_Name.Text + "> 님이 들어오셨습니다.", true);
+          cmd_Connect.Text = "로그아웃";
         } catch (Exception ex) {
-          MessageBox.Show("Chatting Server 오류발생 또는 Start 되지 않았거나\n\n" + ex.Message, "Client");
+          MessageBox.Show("서버가 가동 중이 아니거나 오류 발생\n\n" + ex.Message, "클라이언트");
         }
       } else {
-        string message = "<" + txt_Name.Text + "> 님께서 접속해제 하셨습니다.";
-        send(message, false);
-        SetText(message + "\r\n");
-        cmd_Connect.Text = "Login";
-        logout();
+        SetText(sendlogout() + "\r\n");
+        cmd_Connect.Text = "로그인";
       }
     }
 
     private void txt_Msg_KeyPress(object sender, KeyPressEventArgs e) {
-      if (e.KeyChar == 13) {
-        if (cmd_Connect.Text == "Logout") {
+      if (e.KeyChar == (char) Keys.Enter) {
+        if (cmd_Connect.Text == "로그아웃") {
           send("<" + txt_Name.Text + "> " + txt_Msg.Text, true);
         }
         txt_Msg.Text = "";
@@ -58,21 +53,25 @@ namespace ChatClient {
       }
     }
 
-    public void SetText(string text) {
-      if (this.txt_Chat.InvokeRequired) {
-        this.Invoke((Action<string>) SetText, text);
-      } else {
-        this.txt_Chat.AppendText(text);
-      }
+    public string sendlogout() {
+      string message = "<" + txt_Name.Text + "> 님이 나가셨습니다.";
+      send(message, false);
+      logout();
+      return message;
     }
 
-    private void send(string message, bool showMessage) {
+    public void logout() {
+      reader.Close();
+      reader = null;
+    }
+
+    private void send(string message, bool showErrorMessage) {
       try {
         writer.WriteLine(message);
       } catch (Exception e) {
-        if (showMessage) {
-          MessageBox.Show("Chatting Server가 오류발생 또는 Start 되지 않았거나\n\n" + e.Message, "Client");
-          cmd_Connect.Text = "Login";
+        if (showErrorMessage) {
+          MessageBox.Show("서버가 가동 중이 아니거나 오류 발생\n\n" + e.Message, "클라이언트");
+          cmd_Connect.Text = "로그인";
           logout();
         }
       }
@@ -96,9 +95,12 @@ namespace ChatClient {
       }
     }
 
-    public void logout() {
-      reader.Close();
-      reader = null;
+    public void SetText(string text) {
+      if (this.txt_Chat.InvokeRequired) {
+        this.Invoke((Action<string>) SetText, text);
+      } else {
+        this.txt_Chat.AppendText(text);
+      }
     }
   }
 }

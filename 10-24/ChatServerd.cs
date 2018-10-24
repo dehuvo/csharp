@@ -8,7 +8,7 @@ namespace ChatServer {
     /// Clean up any resources being used.
     /// </summary>
     /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
- protected override void Dispose(bool disposing) {
+    protected override void Dispose(bool disposing) {
       if (disposing && (components != null)) {
         components.Dispose();
       }
@@ -31,7 +31,7 @@ namespace ChatServer {
       this.cmd_Start.Name = "cmd_Start";
       this.cmd_Start.Size = new System.Drawing.Size(139, 54);
       this.cmd_Start.TabIndex = 0;
-      this.cmd_Start.Text = "Server Start";
+      this.cmd_Start.Text = "서버 시작";
       this.cmd_Start.UseVisualStyleBackColor = true;
       this.cmd_Start.Click += new System.EventHandler(this.cmd_Start_Click);
       //
@@ -39,7 +39,7 @@ namespace ChatServer {
       //
       this.lbl_Message.AutoSize = true;
       this.lbl_Message.Font = new System.Drawing.Font("Gulim", 12F,
-     System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (129)));
+        System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (129)));
       this.lbl_Message.Location = new System.Drawing.Point(174, 29);
       this.lbl_Message.Name = "lbl_Message";
       this.lbl_Message.Size = new System.Drawing.Size(186, 16);
@@ -66,8 +66,8 @@ namespace ChatServer {
       this.Controls.Add(this.cmd_Start);
       this.Name = "Form1";
       this.Text = "Form1";
-      this.FormClosed += new
-     System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+      this.FormClosed +=
+        new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
       this.ResumeLayout(false);
       this.PerformLayout();
     }
@@ -77,4 +77,3 @@ namespace ChatServer {
     private System.Windows.Forms.TextBox txt_Chat;
   }
 }
-
