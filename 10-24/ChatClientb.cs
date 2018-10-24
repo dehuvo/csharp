@@ -28,17 +28,16 @@ namespace ChatClient {
     private void cmd_Connect_Click(object sender, EventArgs e) {
       if (cmd_Connect.Text == "Login") {
         try {
-          IPAddress ipaAddress = IPAddress.Parse(txt_Server_IP.Text);
           tcpClient = new TcpClient();
-          tcpClient.Connect(ipaAddress, 5001);
+          tcpClient.Connect(IPAddress.Parse(txt_Server_IP.Text), 5001);
           NetworkStream stream = tcpClient.GetStream();
           reader = new StreamReader(stream, encoding);
           writer = new StreamWriter(stream, encoding) { AutoFlush = true };
           new Thread(post).Start();
           send("<" + txt_Name.Text + "> 님께서 접속 하셨습니다.", true);
           cmd_Connect.Text = "Logout";
-        } catch (System.Exception Err) {
-          MessageBox.Show("Chatting Server 오류발생 또는 Start 되지 않았거나\n\n" + Err.Message, "Client");
+        } catch (Exception ex) {
+          MessageBox.Show("Chatting Server 오류발생 또는 Start 되지 않았거나\n\n" + ex.Message, "Client");
         }
       } else {
         string message = "<" + txt_Name.Text + "> 님께서 접속해제 하셨습니다.";
@@ -70,9 +69,9 @@ namespace ChatClient {
     private void send(string message, bool showMessage) {
       try {
         writer.WriteLine(message);
-      } catch (System.Exception Err) {
+      } catch (Exception e) {
         if (showMessage) {
-          MessageBox.Show("Chatting Server가 오류발생 또는 Start 되지 않았거나\n\n" + Err.Message, "Client");
+          MessageBox.Show("Chatting Server가 오류발생 또는 Start 되지 않았거나\n\n" + e.Message, "Client");
           cmd_Connect.Text = "Login";
           logout();
         }
